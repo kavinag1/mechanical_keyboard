@@ -23,14 +23,3 @@
 
 #define USB_POLLING_INTERVAL_MS 1
 #define FORCE_NKRO
-
-
-/* Split Keyboard Support (for communication between left/right halves) */
-/* Uncomment if using a split keyboard */
-/*
-#define SPLIT_KEYBOARD
-#define SPLIT_UART_PINS
-#define SERIAL_USART_FULL_DUPLEX
-#define SERIAL_USART_TX_PIN GP16
-#define SERIAL_USART_RX_PIN GP17
-*/
