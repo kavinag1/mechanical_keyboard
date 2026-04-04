@@ -15,9 +15,6 @@ ARMV = 7
 USE_FPU = yes
 FLOAT_IMPLEMENTATION = newlib
 
-# Bootloader selection
-BOOTLOADER = rp2040
-
 # Build Options
 #-- don't edit the lines below this point --
 
