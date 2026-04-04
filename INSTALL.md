@@ -1,134 +1,314 @@
-# Installation & Flashing Guide
+# QMK Installation & Building Guide
+
+This guide explains how to compile and flash your 60% mechanical keyboard firmware using QMK.
 
 ## Prerequisites
 
 - Raspberry Pi Pico microcontroller
-- USB cable (USB-A to Micro-USB)
-- Computer with USB port
+- USB cable (Micro-USB for Pico)
+- A computer with Python 3.8 or newer
+- Git installed
 - Text editor (VS Code recommended)
 
-## Step 1: Flash CircuitPython onto Pico
+## Step 1: Install QMK
 
-### Download CircuitPython
+### On Windows (via WSL or native)
 
-1. Go to [circuitpython.org](https://circuitpython.org)
-2. Find and download CircuitPython 8.x or newer for **Raspberry Pi Pico**
-3. Save the `.uf2` file
+**Using native Windows:**
 
-### Install on Pico
+1. Install Python 3.8+ from [python.org](https://www.python.org)
+2. Install Git for Windows from [git-scm.com](https://git-scm.com)
+3. Install the QMK CLI:
 
-1. **Hold the BOOTSEL button** on your Pico
+```bash
+pip install qmk
+```
+
+4. Set up QMK:
+
+```bash
+qmk setup
+```
+
+This clones the main QMK repository.
+
+### On macOS
+
+1. Install Homebrew from [brew.sh](https://brew.sh)
+2. Install Python and Git:
+
+```bash
+brew install python git
+```
+
+3. Install QMK:
+
+```bash
+pip install qmk
+```
+
+4. Set up QMK:
+
+```bash
+qmk setup
+```
+
+### On Linux (Ubuntu/Debian)
+
+```bash
+sudo apt install git python3 python3-pip
+pip install qmk
+qmk setup
+```
+
+## Step 2: Clone Your Keyboard Repository
+
+After QMK is set up, clone this keyboard repository into QMK's keyboards directory:
+
+```bash
+cd ~/qmk_firmware/keyboards
+git clone https://github.com/yourusername/mechanical-keyboard-pico.git mechanical_keyboard
+cd mechanical_keyboard
+```
+
+Or if you already have the code elsewhere, copy it:
+
+```bash
+cp -r /path/to/mechanical_keyboard ~/qmk_firmware/keyboards/
+```
+
+## Step 3: Test the Build Environment
+
+```bash
+qmk compile -kb mechanical_keyboard -km default
+```
+
+If successful, this will create a `.uf2` file in the build directory:
+```
+.build/mechanical_keyboard_default.uf2
+```
+
+### Troubleshooting Build Issues
+
+If you get errors, try:
+
+1. Update QMK:
+```bash
+cd ~/qmk_firmware
+git pull
+qmk setup --update
+```
+
+2. Clear the build directory:
+```bash
+rm -rf .build
+```
+
+3. Recompile with verbose output:
+```bash
+qmk compile -kb mechanical_keyboard -km default -v
+```
+
+## Step 4: Wire Your Keyboard Hardware
+
+### GPIO Connections
+
+Wire your 60% keyboard matrix to the Pico according to [docs/PINOUT.md](docs/PINOUT.md):
+
+**Rows:** Connect to GPIO13-GPIO17
+**Columns:** Connect to GPIO0-GPIO12 and GPIO18
+
+Each switch should have a 1N4148 diode soldered in series.
+
+### Test Solder Joints
+
+- Use a multimeter to verify continuity
+- Check for shorts between adjacent rows/columns
+- Verify all diodes are in the correct orientation
+
+## Step 5: Flash the Firmware
+
+### Prepare Your Pico
+
+1. **Hold the BOOTSEL button** on your Raspberry Pi Pico
 2. **While holding BOOTSEL**, plug the Pico into your computer via USB
-3. A drive called `RPI-RP2` will appear
-4. Drag and drop the CircuitPython `.uf2` file onto the `RPI-RP2` drive
-5. Wait for the file to copy and the Pico to reboot
-6. A new drive called `CIRCUITPY` will appear - this is your Pico's filesystem
+3. A drive named `RPI-RP2` will appear
 
-## Step 2: Install Required Libraries
+### Copy the Firmware
 
-The firmware uses KMK, which needs to be installed on your Pico.
-
-### Option A: Automated Installation (Recommended)
-
-1. Download KMK from: https://github.com/KMKfw/kmk_firmware/releases
-2. Download the `.zip` file
-3. Extract and copy the `kmk` folder to the `CIRCUITPY` drive
-
-### Option B: Manual Installation
-
-1. Go to [KMK GitHub](https://github.com/KMKfw/kmk_firmware)
-2. Click "Code" → "Download ZIP"
-3. Extract the zip file
-4. Copy the `kmk` folder to your `CIRCUITPY` drive
-
-## Step 3: Copy Firmware Files
-
-1. Take the firmware files from this project:
-   - `kb.py`
-   - `boot.py`
-   - `config.py`
-   - `keymap.py`
-
-2. Copy these files to the root of your `CIRCUITPY` drive
-
-### Your CIRCUITPY drive should look like:
-
-```
-CIRCUITPY/
-├── boot.py
-├── kb.py
-├── config.py
-├── keymap.py
-├── kmk/  (from KMK installation)
-└── docs/
-    ├── pinout.md
-    ├── keycodes.md
-    └── customization.md
-```
-
-## Step 4: Wire Your Keyboard Matrix
-
-Follow the pinout guide in `docs/pinout.md` to wire your keyboard:
-
-- Connect rows to output pins (GP0-GP4)
-- Connect columns to input pins (GP5-GP14)
-- Use diodes at each switch to prevent ghosting
-
-## Step 5: Test the Firmware
-
-1. Connect your Pico to your computer
-2. Open a serial monitor (e.g., using Thonny IDE or Python serial tools)
-3. You should see:
+1. Locate the compiled `.uf2` file:
    ```
-   CircuitPython boot complete. Loading keyboard firmware...
-   Keyboard firmware loaded!
+   .build/mechanical_keyboard_default.uf2
    ```
 
-4. Press keys on your keyboard matrix - they should appear in the serial output
+2. **Drag and drop** (or copy) the `.uf2` file to the `RPI-RP2` drive
 
-## Step 6: Test in OS
+3. The Pico will automatically reboot and run the firmware
 
-1. Plug your Pico into a computer (different from the one you're developing on, or just any computer)
-2. Open a text editor (Notepad, Word, etc.)
+### Verify Installation
+
+1. Plug the Pico into your computer (any USB port, any computer)
+2. Open a text editor
 3. Press keys on your keyboard
-4. They should type the characters defined in your keymap
+4. Characters should appear as expected
+
+## Compiling Different Keymaps
+
+To compile with a different keymap:
+
+```bash
+qmk compile -kb mechanical_keyboard -km your_keymap_name
+```
+
+To create a new keymap:
+
+1. Create a directory:
+```bash
+mkdir keyboards/mechanical_keyboard/keymaps/gaming
+```
+
+2. Copy the default keymap:
+```bash
+cp keyboards/mechanical_keyboard/keymaps/default/keymap.c keyboards/mechanical_keyboard/keymaps/gaming/
+```
+
+3. Edit `gaming/keymap.c` with your custom layout
+
+4. Compile:
+```bash
+qmk compile -kb mechanical_keyboard -km gaming
+```
+
+## Development Workflow
+
+### Quick Compile & Flash Loop
+
+1. Edit your keymap in `keymaps/default/keymap.c`
+2. Compile:
+```bash
+qmk compile -kb mechanical_keyboard -km default
+```
+3. Flash to Pico (hold BOOTSEL, drag .uf2 file)
+4. Test
+5. Repeat
+
+### Version Control
+
+Once you have a working setup, commit your changes:
+
+```bash
+git add -A
+git commit -m "Add custom keymap"
+git push
+```
+
+## Customization Guide
+
+See [docs/CUSTOMIZATION.md](docs/CUSTOMIZATION.md) for detailed instructions on:
+- Changing key assignments
+- Adding new layers
+- Creating macros
+- Enabling hardware features
+
+See [docs/PINOUT.md](docs/PINOUT.md) for:
+- GPIO pin assignments
+- Physical matrix layout
+- Troubleshooting key press issues
+
+## Enabling Features
+
+### RGB Underglow
+
+1. Update `config.h`:
+```c
+#define RGB_DI_PIN GP26
+#define RGBLED_NUM 64
+```
+
+2. Enable in `rules.mk`:
+```makefile
+RGBLIGHT_ENABLE = yes
+RGBLIGHT_DRIVER = ws2812
+```
+
+3. Recompile
+
+### Per-Key RGB
+
+1. Update `config.h`:
+```c
+#define RGB_MATRIX_ENABLE
+#define RGB_MATRIX_DRIVER ws2812
+```
+
+2. Enable in `rules.mk`:
+```makefile
+RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = ws2812
+```
+
+### OLED Display
+
+1. Update `config.h`:
+```c
+#define OLED_DRIVER_ENABLE
+#define I2C_DRIVER I2C1
+```
+
+2. Enable in `rules.mk`:
+```makefile
+OLED_DRIVER_ENABLE = yes
+I2C_ENABLE = yes
+```
+
+For full examples, see the [QMK Documentation](https://docs.qmk.fm/).
 
 ## Troubleshooting
 
-### Firmware not loading
-- Check that all files are copied to CIRCUITPY drive
-- Verify CircuitPython 8.x or newer is installed
-- Check the serial output for error messages
+### Firmware won't compile
+- Ensure QMK is properly installed: `qmk doctor`
+- Check file paths - they're case-sensitive on Linux/Mac
+- Try `qmk setup --update`
 
-### No CIRCUITPY drive appearing
-- Hold BOOTSEL and replug the Pico
+### Keyboard not recognized after flashing
+- Verify the `.uf2` file copied successfully
 - Try a different USB cable
 - Try a different USB port
+- Hold BOOTSEL again and reflash
 
-### Wrong key codes
-- Review your `config.py` row/column pin assignments
-- Check that diodes are installed correctly
-- Test individual matrix positions
+### Wrong keys responding
+- Check [docs/PINOUT.md](docs/PINOUT.md) for matrix layout
+- Verify GPIO pin assignments in `config.h`
+- Test matrix with `DEBUG_MATRIX_SCAN_RATE` enabled
+- Check for solder bridges between row/column traces
 
-### Keys not responding
-- Verify wiring matches `config.py`
-- Check row pins can source current properly
-- Verify column pins have pull-ups (built into KMK)
+### Some keys don't work
+- Check for bad diodes (reversed polarity?)
+- Check for cracked traces on PCB
+- Test continuity with multimeter
+- Verify debounce settings in `config.h`
+
+### Double-presses or ghosting
+- Increase `DEBOUNCE` value in `config.h`
+- Verify all diodes are installed
+- Check diode orientation (stripe toward column)
+
+## QMK Documentation
+
+For more detailed information:
+
+- [QMK Overview](https://docs.qmk.fm/)
+- [Keyboard Guidelines](https://docs.qmk.fm/newbs)
+- [Keycodes](https://docs.qmk.fm/keycodes)
+- [Features](https://docs.qmk.fm/features)
+- [RP2040 Documentation](https://docs.qmk.fm/platformdev_rp2040)
 
 ## Next Steps
 
-Once your keyboard is working:
+1. ✅ Build and flash the default firmware
+2. 📝 Customize your keymap in `keymaps/default/keymap.c`
+3. 🎮 Create additional keymaps for gaming, coding, etc.
+4. 🔧 Enable features like RGB LEDs or OLED displays
+5. 📤 Push your changes to GitHub!
 
-1. **Customize keymaps** - Edit `keymap.py` to change keys
-2. **Add layers** - Create additional layers for gaming/coding
-3. **Configure settings** - Adjust debounce, brightness, etc. in `config.py`
-4. **Add features** - Enable RGB LEDs, OLED display, etc.
-
-See `docs/customization.md` for more detailed customization instructions.
-
-## Additional Resources
-
-- [CircuitPython Documentation](https://docs.circuitpython.org/)
-- [KMK Firmware GitHub](https://github.com/KMKfw/kmk_firmware)
-- [Raspberry Pi Pico Documentation](https://www.raspberrypi.com/documentation/)
-- [KMK Features](https://github.com/KMKfw/kmk_firmware/tree/master/docs)
+Enjoy your custom mechanical keyboard! 🎹
