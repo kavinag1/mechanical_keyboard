@@ -1,219 +1,336 @@
-# Customization Guide for KMK Mechanical Keyboard Firmware
+# QMK Customization Guide
+
+This guide will help you customize your 60% mechanical keyboard firmware using QMK.
 
 ## Quick Start
 
-This guide will help you customize your keyboard firmware quickly and easily.
+The easiest way to customize your keyboard is to modify files in this order:
+1. **Keymaps** - Change which keys do what
+2. **Config** - Adjust debounce, features, etc.
+3. **Build Settings** - Enable/disable features
 
-## Table of Contents
-1. [Changing Key Mappings](#changing-key-mappings)
-2. [Adding New Layers](#adding-new-layers)
-3. [Layer Switching](#layer-switching)
-4. [Macros](#macros)
-5. [Debounce Adjustment](#debounce-adjustment)
-6. [Adding RGB LED Support](#adding-rgb-led-support)
-7. [Troubleshooting](#troubleshooting)
+## Changing Keymaps
 
-## Changing Key Mappings
+### Basic Key Reassignment
 
-The easiest customization is to remap keys. This is done in `keymap.py`.
+Edit `keymaps/default/keymap.c`:
 
-### Basic Key Remapping
-
-1. Open `keymap.py`
-2. Find the key you want to change in `LAYER_0`
-3. Replace it with the keycode you want
-4. Save the file
-
-Example: Change ESC to Grave key (`)
-```python
-# Change this:
-(KC.ESC, KC.N1, KC.N2, ...)
-
-# To this:
-(KC.GRV, KC.N1, KC.N2, ...)
+```c
+// Change the default layer
+[0] = {
+    {KC_ESC, KC_1, KC_2, KC_3, /* ... more keys ... */},
+    // More rows...
+}
 ```
 
 ### Available Keycodes
-See `docs/keycodes.md` for a complete list of available keycodes.
 
-## Adding New Layers
+Common keycodes you can use:
 
-Create additional layers for gaming, coding, or other purposes.
+**Letters & Numbers:**
+- `KC_A` through `KC_Z` - Letters
+- `KC_1` through `KC_0` - Numbers (top row)
 
-### Example: Adding a Layer 2
+**Modifiers:**
+- `KC_LCTL`, `KC_RCTL` - Control keys
+- `KC_LSFT`, `KC_RSFT` - Shift keys
+- `KC_LALT`, `KC_RALT` - Alt keys
+- `KC_LGUI`, `KC_RGUI` - Windows/Command keys
 
-1. Open `keymap.py`
-2. Add a new layer definition after `LAYER_1`:
+**Function Keys:**
+- `KC_F1` through `KC_F24` - Function keys
 
-```python
-# Layer 2 - Gaming Layer
-LAYER_2 = (
-    # Row 0: Same as default
-    (KC.ESC, KC.N1, KC.N2, KC.N3, KC.N4, KC.N5, KC.N6, KC.N7, KC.N8, KC.N9, KC.N0, KC.MINUS, KC.EQUAL, KC.BSPC),
-    
-    # Row 1: WASD for movement, other keys for gaming
-    (KC.TAB, KC.W, KC.Q, KC.E, KC.R, KC.T, KC.Y, KC.U, KC.I, KC.O, KC.P, KC.LBRC, KC.RBRC, KC.BSLS),
-    
-    # ... add remaining rows
-)
-```
+**Navigation:**
+- `KC_HOME`, `KC_END`, `KC_PGUP`, `KC_PGDN`
+- `KC_UP`, `KC_DOWN`, `KC_LEFT`, `KC_RIGHT`
+- `KC_INS`, `KC_DEL`
 
-3. Update the `KEYMAP` tuple to include the new layer:
+**Special Keys:**
+- `KC_ESC`, `KC_TAB`, `KC_CAPS`, `KC_ENT`
+- `KC_BSPC` - Backspace
+- `KC_SPC` - Space
+- `KC_LBRC`, `KC_RBRC` - [ and ]
+- `KC_BSLS` - Backslash \
+- `KC_SCLN` - Semicolon ;
+- `KC_QUOT` - Quote '
+- `KC_COMM`, `KC_DOT`, `KC_SLSH` - , . /
+- `KC_MINS`, `KC_EQL` - - and =
+- `KC_GRV` - Grave `
 
-```python
-KEYMAP = (
-    LAYER_0,
-    LAYER_1,
-    LAYER_2,  # Add this
-)
-```
+**Media Keys:**
+- `KC_MUTE`, `KC_VOLU`, `KC_VOLD` - Volume control
+- `KC_MPLY`, `KC_MNXT`, `KC_MPRV` - Media playback
+- `KC_PSCR`, `KC_SLCK`, `KC_PAUS` - Print, Scroll Lock, Pause
 
-4. Update `NUM_LAYERS` in `config.py`:
+**Special:**
+- `KC_NO` - No operation (empty key)
+- `_______` - Transparent (use key from lower layer)
 
-```python
-NUM_LAYERS = 3  # Changed from 2
+### Example: Swap Caps Lock and Escape
+
+```c
+[0] = {
+    {KC_CAPS,  KC_1,    KC_2,    /* ... */},  // Caps in ESC position
+    {KC_TAB,   KC_Q,    KC_W,    /* ... */},
+    {KC_ESC,   KC_A,    KC_S,    /* ... */},  // ESC in CAPS position
+    // ... rest of keymap
+}
 ```
 
 ## Layer Switching
 
-Control how you switch between layers using layer switching keys.
+### Add a New Layer
+
+Create a new layer for gaming, coding, or other purposes:
+
+```c
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [0] = {
+        // Default QWERTY layer
+        {KC_ESC, KC_1, /* ... */}
+    },
+
+    [1] = {
+        // Function layer (existing)
+        {KC_GRV, KC_F1, /* ... */}
+    },
+
+    [2] = {
+        // New gaming layer
+        {KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSPC},
+        {KC_TAB, KC_W, KC_Q, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS},
+        // ... rest of gaming layout
+    }
+};
+```
 
 ### Layer Switching Keys
 
-In your keymap, use these special layer control keys:
+Use these in your keymap to switch layers:
 
-```python
-from kmk.keys import KC
+- `MO(layer)` - **Momentary**: Hold to activate, release to deactivate
+  ```c
+  MO(1)  // Hold down for layer 1, tap for nothing
+  ```
 
-# Momentary - Hold to activate, release to deactivate
-KC.MO(1)  # Hold for Layer 1
+- `LT(layer, key)` - **Layer Tap**: Hold for layer, tap for key
+  ```c
+  LT(1, KC_SPC)  // Hold for layer 1, tap for space
+  ```
 
-# Toggle - Press to activate, press again to deactivate
-KC.TG(1)  # Toggle Layer 1
+- `TG(layer)` - **Toggle**: Press to activate, press again to deactivate
+  ```c
+  TG(2)  // Press to toggle layer 2
+  ```
 
-# Layer Tap - Hold for layer, tap for key
-KC.LT(1, KC.SPC)  # Hold for Layer 1, Tap for Space
+### Example: Function Layer on Right Alt
+
+Replace the right Alt key with layer switching:
+
+```c
+[0] = {
+    // ... other keys ...
+    {KC_LCTL, KC_LGUI, KC_LALT, KC_NO, KC_NO, KC_SPC, KC_NO, KC_NO, MO(1), KC_RGUI, KC_NO, KC_NO, KC_NO, KC_RCTL},
+};
 ```
 
-### Example: Add FN Key (Layer 1 Momentary)
+Now holding right Alt activates layer 1.
 
-In `keymap.py`, replace an unused key with layer switching:
+## Configuring Features
 
-```python
-# In LAYER_0, replace right Alt with Layer 1 momentary:
-(KC.LCTL, KC.LGUI, KC.LALT, KC.NO, KC.NO, KC.SPC, KC.NO, KC.NO, KC.MO(1), KC.RGUI, KC.NO, KC.NO, KC.NO, KC.RCTL),
+### Debounce Settings
+
+Edit `config.h` to adjust how the keyboard detects key presses:
+
+```c
+/* Debounce in milliseconds - default is 20 */
+#define DEBOUNCE 20
+
+// Lower value = faster response, but may cause double-presses
+// Higher value = more stable, but slower response
 ```
 
-Now holding the right Alt key will activate Layer 1 temporarily.
+Typical range: 10-30ms. Test what feels right for your switches.
 
-## Macros
+### Enable Media Keys
 
-Create macros for frequently typed text or key combinations.
+Add to `rules.mk`:
+
+```makefile
+EXTRAKEY_ENABLE = yes
+```
+
+Now you can use: `KC_MUTE`, `KC_VOLU`, `KC_VOLD`, `KC_MPLY`, etc.
+
+### Enable Mouse Keys
+
+Add to `rules.mk`:
+
+```makefile
+MOUSEKEY_ENABLE = yes
+```
+
+Then use in your keymap:
+- `KC_MS_UP`, `KC_MS_DN`, `KC_MS_LT`, `KC_MS_RT` - Mouse movement
+- `KC_BTN1`, `KC_BTN2`, `KC_BTN3` - Left, Right, Middle click
+
+### N-Key Rollover (NKRO)
+
+Already enabled by default in `rules.mk`. This allows pressing multiple keys at once without interference.
+
+Disable with:
+```makefile
+NKRO_ENABLE = no
+```
+
+## Adding Macros
 
 ### Simple Text Macro
 
-In `keymap.py`:
+In `keymap.c`:
 
-```python
-from kmk.handlers.sequences import send_string
+```c
+// Add this code before the keymaps
+enum custom_keycodes {
+    EMAIL = SAFE_RANGE,
+    GREET
+};
 
-MACROS = {
-    'EMAIL': send_string('user@example.com'),
-    'ADDRESS': send_string('123 Main St, Anytown, USA'),
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case EMAIL:
+            if (record->event.pressed) {
+                SEND_STRING("user@example.com");
+            }
+            return false;
+        case GREET:
+            if (record->event.pressed) {
+                SEND_STRING("Hello, World!");
+            }
+            return false;
+    }
+    return true;
 }
 ```
 
-### Using Macros in Keymap
-
-To use macros in your keymap, you need to map them to physical keys. This typically requires a macro module (see KMK documentation for advanced macro setup).
-
-For now, text strings work well in special keys.
-
-## Debounce Adjustment
-
-If keys are registering multiple times, increase debounce. If response is sluggish, decrease it.
-
-In `config.py`:
-
-```python
-# Default: 20ms
-DEBOUNCE_TIME = 20
-
-# Increase if you get double-presses:
-DEBOUNCE_TIME = 25  # or 30
-
-# Decrease for more responsive feel (may need to increase if double-press occurs):
-DEBOUNCE_TIME = 15
+Then use in your keymap:
+```c
+[1] = {
+    {EMAIL, GREET, /* ... */}
+}
 ```
 
-The debounce time is in milliseconds. Test values of 15-25ms typically work best.
+## Building Custom Layouts
 
-## Adding RGB LED Support
+### Add a New Keymap
 
-If your keyboard has underglow or per-key RGB LEDs:
+Create a new keymap file:
 
-### 1. Install NeoPixel Library
-
-Copy the NeoPixel CircuitPython library to your Pico.
-
-### 2. Enable in `config.py`
-
-```python
-# Change from:
-LED_PIN = None
-LED_NUM = 0
-
-# To your actual pin and number of LEDs:
-LED_PIN = board.GP26  # or whatever pin you're using
-LED_NUM = 64  # Number of LEDs
-LED_BRIGHTNESS = 100  # 0-255
+```bash
+mkdir -p keymaps/gaming
 ```
 
-### 3. Enable in `kb.py`
+Copy `keymaps/default/keymap.c` to `keymaps/gaming/keymap.c` and edit it.
 
-Uncomment the LED support section:
+### Compile Your New Keymap
 
-```python
-from kmk.extensions.NeoPixel import NeoPixelExt
-
-neopixel = NeoPixelExt(
-    pixel_pin=keyboard.config.led_pin,
-    num_pixels=keyboard.config.led_num,
-    val_default=keyboard.config.led_brightness,
-)
-keyboard.extensions.append(neopixel)
+```bash
+qmk compile -kb mechanical_keyboard -km gaming
 ```
+
+This creates a new `.uf2` file with your custom keymap.
+
+## Advanced Customization
+
+### Custom Behavior on Key Press/Release
+
+```c
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case KC_A:
+            if (record->event.pressed) {
+                // Do something when A is pressed
+                SEND_STRING("A pressed!");
+            } else {
+                // Do something when A is released
+            }
+            return true;  // Continue normal processing
+    }
+    return true;
+}
+```
+
+### Tap Dance (Double-tap Actions)
+
+Enable in `rules.mk`:
+```makefile
+TAP_DANCE_ENABLE = yes
+```
+
+Then in `keymap.c`:
+
+```c
+enum {
+    TD_ESC_CAPS = 0,
+    TD_SPC_SHIFT = 1
+};
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+    // Tap once = ESC, Tap twice = CAPS LOCK
+    [TD_ESC_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
+    
+    // Tap once = SPACE, Hold = SHIFT
+    [TD_SPC_SHIFT] = ACTION_TAP_DANCE_DOUBLE(KC_SPC, KC_LSFT)
+};
+```
+
+Use in keymap:
+```c
+[0] = {
+    {TD(TD_ESC_CAPS), /* ... */}
+}
+```
+
+## Testing Your Changes
+
+### Compile
+```bash
+qmk compile -kb mechanical_keyboard -km default
+```
+
+### Check for Errors
+```bash
+qmk compile -kb mechanical_keyboard -km default -v
+```
+
+The `-v` flag gives verbose output for debugging.
+
+### Flash to Pico
+1. Hold BOOTSEL on your Pico
+2. Copy the `.uf2` file to the RPI-RP2 drive
 
 ## Troubleshooting
 
-### Issue: Keys are double-registering
+### Compilation Error: "LAYOUT not defined"
+- Make sure you're using array syntax `{ { ... }, { ... }, ... }` instead of `LAYOUT_60_ansi()`
 
-**Solution:** Increase `DEBOUNCE_TIME` in `config.py`
+### Keys not working after compile
+- Check Matrix in [docs/PINOUT.md](PINOUT.md)
+- Verify GPIO pins in `config.h` match your board
 
-```python
-DEBOUNCE_TIME = 25  # Try 25ms instead of 20ms
-```
+### Some keys produce wrong characters
+- Check your keycode assignment
+- Verify the layer is correct
+- Test in a simple text editor
 
-### Issue: Some keys not responding
+### Weird compilation errors
+- Run `qmk setup` again
+- Delete the Build folder: `rm -rf .build`
+- Recompile from scratch
 
-**Solution:** Check your matrix configuration
-1. Verify GPIO pins in `config.py` match your wiring
-2. Test individual rows/columns (see pinout.md)
-3. Ensure diodes are properly installed
+## More Resources
 
-### Issue: Wrong keys in certain positions
-
-**Solution:** Verify your matrix layout
-1. Check that `LAYER_0` matches your physical keyboard layout
-2. Count the columns carefully (should be 14 for 60%)
-3. Test pressing each physical key and note which keycode it produces
-
-### Issue: Firmware won't load
-
-**Solution:**
-1. Ensure CircuitPython 8.x is installed on Pico
-2. Check that `kb.py` is in the root of CIRCUITPY drive
-3. View REPL output for error messages
-
-For more advanced customization, see the KMK documentation:
-https://github.com/KMKfw/kmk_firmware/tree/master/docs
+- [QMK Docs - Keycodes](https://docs.qmk.fm/keycodes)
+- [QMK Docs - Macros](https://docs.qmk.fm/feature_macros)
+- [QMK Docs - Layers](https://docs.qmk.fm/feature_layers)
+- [QMK GitHub - Example Keymaps](https://github.com/qmk/qmk_firmware/tree/master/keyboards/dz60/keymaps)
