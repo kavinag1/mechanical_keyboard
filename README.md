@@ -13,6 +13,8 @@ I started by designing a 60% keyboard matrix - 5 rows and 14 columns giving me 6
 - 14 column lines  
 - 60 key positions in standard ANSI format
 
+![PCB Layout](images/pcb-layout.png)
+
 ### Step 2: I Routed the Electrical Design
 
 Once I had the layout, I had to design the actual circuit. I added 1N4148 diodes on each switch to prevent ghosting (when multiple keys activate unintentionally). Then I routed the traces to connect everything properly.
@@ -22,13 +24,22 @@ Once I had the layout, I had to design the actual circuit. I added 1N4148 diodes
 - Column pins (inputs): GP0, GP1, GP2, GP3, GP4, GP5, GP6, GP7, GP8, GP9, GP10, GP11, GP12, GP18
 - Each switch connects through a 1N4148 diode cathode to column, anode to row
 
+![PCB Routing](images/pcb-routing.png)
+![Diode Connections](images/diode-diagram.png)
+
 ### Step 3: I Designed the Case
 
 I designed a case to hold everything together - the PCB, the Pico microcontroller, and all the switches. The case protects the electronics while keeping the keyboard solid and stable.
 
+![Case Design](images/case-design.png)
+![Case Assembly](images/case-assembled.png)
+
 ### Step 4: I Assembled the Keyboard
 
 Soldered the diodes to each switch. Wired the rows and columns. Connected the Pico microcontroller. Put it all in the case and tested that everything worked.
+
+![Assembly Process](images/assembly-process.png)
+![Finished Keyboard](images/finished-keyboard.png)
 
 ### Step 5: I Configured the Firmware
 
