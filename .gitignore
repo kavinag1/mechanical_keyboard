@@ -1,0 +1,29 @@
+# CircuitPython
+*.pyc
+__pycache__/
+.venv/
+venv/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+*.o
+*.a
+build/
+dist/
+
+# Firmware
+*.uf2
+
+# USB/Serial
+.serial_log
