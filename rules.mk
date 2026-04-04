@@ -27,12 +27,6 @@ SPLIT_KEYBOARD = no
 
 LTO_ENABLE = yes
 
-
-# Per-key RGB (optional - uncomment to enable)
-# RGB_MATRIX_ENABLE = yes
-# RGB_MATRIX_DRIVER = ws2812
-
-# OLED Display Support (optional - uncomment to enable)
 # OLED_DRIVER_ENABLE = yes
 
 # Encoder support (optional - uncomment to enable)

@@ -24,17 +24,6 @@
 #define USB_POLLING_INTERVAL_MS 1
 #define FORCE_NKRO
 
-/* Encoder Support */
-/* Uncomment if you have rotary encoders */
-/*
-#define ENCODERS_PAD_A { GP25 }
-#define ENCODERS_PAD_B { GP24 }
-#define ENCODER_RESOLUTION 4
-*/
-
-/* Tap Dance support */
-#define TAPPING_TERM 200
-#define PERMISSIVE_HOLD
 
 /* Split Keyboard Support (for communication between left/right halves) */
 /* Uncomment if using a split keyboard */
