@@ -1,6 +1,19 @@
 # How to Upload to GitHub
 
-Follow these simple steps to upload your keyboard project to GitHub.
+## Quick Option: Use the Automated Script
+
+1. Open PowerShell in the project folder
+2. Run:
+```powershell
+.\upload-to-github.ps1
+```
+3. Follow the prompts and enter your GitHub username
+
+This script will automatically handle everything for you!
+
+---
+
+## Manual Option: Do It Step By Step
 
 ## Step 1: Create a GitHub Repository
 
