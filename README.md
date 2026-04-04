@@ -13,6 +13,16 @@ I started by designing a 60% keyboard matrix - 5 rows and 14 columns giving me 6
 - 14 column lines  
 - 60 key positions in standard ANSI format
 
+**Matrix Grid:**
+```
+       Col0 Col1 Col2 Col3 Col4 Col5 Col6 Col7 Col8 Col9 Col10 Col11 Col12 Col13
+Row0    Esc  1    2    3    4    5    6    7    8    9    0     -     =     Bksp
+Row1    Tab  Q    W    E    R    T    Y    U    I    O    P     [     ]     \
+Row2    Caps A    S    D    F    G    H    J    K    L    ;     '     None  Entr
+Row3    Shft Z    X    C    V    B    N    M    ,    .    /     None  None  Shft
+Row4    Ctrl Win  Alt  None None Space None None RAlt RGui None None None  Ctrl
+```
+
 ![PCB Layout](images/pcb-layout.png)
 
 ### Step 2: I Routed the Electrical Design
@@ -23,6 +33,28 @@ Once I had the layout, I had to design the actual circuit. I added 1N4148 diodes
 - Row pins (outputs): GP13, GP14, GP15, GP16, GP17
 - Column pins (inputs): GP0, GP1, GP2, GP3, GP4, GP5, GP6, GP7, GP8, GP9, GP10, GP11, GP12, GP18
 - Each switch connects through a 1N4148 diode cathode to column, anode to row
+
+**How Each Switch Works:**
+```
+         Row Output (GP13-17)
+              |
+              |
+         ┌────┴────┐
+         │  Switch │
+         └────┬────┘
+              |
+         ┌────▼────┐
+         │ 1N4148  │ (Anode at switch, Cathode toward column)
+         │ Diode   │
+         └────┬────┘
+              |
+    Column Input (GP0-12, GP18) with 10kΩ pull-up to 3.3V
+```
+
+This diode arrangement:
+- Prevents ghosting (multiple accidental key presses)
+- Allows N-key rollover (multiple simultaneous key presses)
+- Protects from electrical noise
 
 ![PCB Routing](images/pcb-routing.png)
 ![Diode Connections](images/diode-diagram.png)
@@ -84,3 +116,25 @@ Ctrl Win Alt         Space      Alt Win Ctrl
 **Layer 1 (Function):**
 F-keys, navigation arrows, media controls (accessed by holding Fn)
 
+## Troubleshooting
+
+### Key Not Responding
+- Check solder joint at the switch
+- Verify diode is soldered correctly (stripe = cathode, toward column)
+- Test continuity with multimeter between row and column through diode
+
+### Key Registers Wrong Character
+- Check the keymap in `keymap.c` - the wrong key might be programmed
+- Verify the row/column position matches the physical layout
+- Recompile and reflash firmware
+
+### Multiple Keys Activating (Ghosting)
+- Check if diode is missing or reversed
+- Verify all diodes are installed on every switch
+- Check for shorted traces or solder bridges
+
+### Keyboard Not Detected by Computer
+- Make sure Pico is in bootloader mode (press BOOTSEL while plugging in)
+- Check USB cable is data cable, not charge-only
+- Try a different USB port
+- Make sure QMK compiled successfully (no build errors)
