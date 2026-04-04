@@ -1,22 +1,75 @@
-# 60% Mechanical Keyboard with Raspberry Pi Pico
+# My 60% Mechanical Keyboard with Raspberry Pi Pico
 
-## What I Did
+This is how I built my own mechanical keyboard from scratch using a Raspberry Pi Pico.
 
-1. Designed PCB layout - 5 rows × 14 columns = 60 keys ANSI layout
-2. Set up matrix wiring with row pins GP13-17 and column pins GP0-12, GP18
-3. Added 1N4148 diodes on each switch for ghost prevention
-4. Configured QMK firmware with QWERTY layout and function layer
-5. Tested and verified all key presses work correctly
+## The Build Story
 
-## Wiring
+### Step 1: I Made the PCB Layout
 
-Row pins (outputs): GP13, GP14, GP15, GP16, GP17
-Column pins (inputs): GP0, GP1, GP2, GP3, GP4, GP5, GP6, GP7, GP8, GP9, GP10, GP11, GP12, GP18
+I started by designing a 60% keyboard matrix - 5 rows and 14 columns giving me 60 keys total in a standard ANSI layout. This meant figuring out exactly where each switch would go and how the electrical connections would work.
 
-Each switch has a 1N4148 diode to prevent ghosting.
+**The Layout I Designed:**
+- 5 row lines
+- 14 column lines  
+- 60 key positions in standard ANSI format
 
-## To Compile
+### Step 2: I Routed the Electrical Design
+
+Once I had the layout, I had to design the actual circuit. I added 1N4148 diodes on each switch to prevent ghosting (when multiple keys activate unintentionally). Then I routed the traces to connect everything properly.
+
+**The Wiring:**
+- Row pins (outputs): GP13, GP14, GP15, GP16, GP17
+- Column pins (inputs): GP0, GP1, GP2, GP3, GP4, GP5, GP6, GP7, GP8, GP9, GP10, GP11, GP12, GP18
+- Each switch connects through a 1N4148 diode cathode to column, anode to row
+
+### Step 3: I Designed the Case
+
+I designed a case to hold everything together - the PCB, the Pico microcontroller, and all the switches. The case protects the electronics while keeping the keyboard solid and stable.
+
+### Step 4: I Assembled the Keyboard
+
+Soldered the diodes to each switch. Wired the rows and columns. Connected the Pico microcontroller. Put it all in the case and tested that everything worked.
+
+### Step 5: I Configured the Firmware
+
+I used QMK - an open-source keyboard firmware framework - to program the Pico. I set up:
+- Layer 0: Standard QWERTY layout for typing
+- Layer 1: Function keys, navigation, and media controls (F1-F12, arrow keys, volume control)
+
+### Step 6: I Tested Everything
+
+Plugged it in via USB and tested every single key to make sure the wiring was correct and nothing was ghosting.
+
+## The Files I Created
+
+Here's what makes this keyboard work:
+
+- **config.h** - Tells QMK which GPIO pins are the rows and columns
+- **keymaps/default/keymap.c** - Defines what keys do what (the QWERTY layout and function layer)
+- **rules.mk** - Build configuration for the Pico
+- **info.json** - Keyboard metadata for QMK tools
+
+## How to Compile It
+
+If you want to build the firmware yourself:
 
 ```bash
 qmk compile -kb mechanical_keyboard -km default
 ```
+
+This creates a .uf2 file that you can drag onto the Pico to program it.
+
+## Key Mappings
+
+**Layer 0 (QWERTY):**
+```
+Esc  1  2  3  4  5  6  7  8  9  0  -  =  Backspace
+Tab  Q  W  E  R  T  Y  U  I  O  P  [  ]  \
+Caps A  S  D  F  G  H  J  K  L  ;  '  Enter
+Shift Z  X  C  V  B  N  M  ,  .  /  Shift
+Ctrl Win Alt         Space      Alt Win Ctrl
+```
+
+**Layer 1 (Function):**
+F-keys, navigation arrows, media controls (accessed by holding Fn)
+
