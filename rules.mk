@@ -1,56 +1,32 @@
-# Build Options
-#----------------------------------------------------------------------------
-# change yes to no to disable
-#
 BOOTLOADER = rp2040
 BOARD = GENERIC_RP_RP2040
-
-# These files specify functionality
-SRC += $(QUANTUM_DIR)/quantum.c
-
 MCU = RP2040
 
-# Microcontroller settings
+SRC += $(QUANTUM_DIR)/quantum.c
+
 ARMV = 7
 USE_FPU = yes
 FLOAT_IMPLEMENTATION = newlib
 
-# Build Options
-#-- don't edit the lines below this point --
-
-# Debugging / Flashing options
+SERIAL_DRIVER = vendor
+WS2812_DRIVER = vendor
 DFU_ARGS = -d 1209:bA42 -a 0 -R
 DFU_SUFFIX_ARGS = -v 1209 -p bA42
 PROGRAMMER = atmel_dfu
 
-# Input/Output Options
-SERIAL_DRIVER = vendor
-WS2812_DRIVER = vendor
+MOUSEKEY_ENABLE = yes
+EXTRAKEY_ENABLE = yes
+CONSOLE_ENABLE = yes
+COMMAND_ENABLE = yes
+NKRO_ENABLE = yes
+BACKLIGHT_ENABLE = no
+MAGIC_ENABLE = yes
+UNICODE_ENABLE = no
+BLUETOOTH_ENABLE = no
+SPLIT_KEYBOARD = no
 
-# Feature options - uncomment to enable
-MOUSEKEY_ENABLE = yes           # Mouse keys
-EXTRAKEY_ENABLE = yes           # Audio control and System control
-CONSOLE_ENABLE = yes            # Console for debug and messages
-COMMAND_ENABLE = yes            # Commands for debug and configuration
-NKRO_ENABLE = yes               # Enable N-Key Rollover for more responsive keystroke detection
-BACKLIGHT_ENABLE = no           # Enable keyboard backlight functionality
-MAGIC_ENABLE = yes              # Magic key functionality
-UNICODE_ENABLE = no             # Unicode
-BLUETOOTH_ENABLE = no           # Enable Bluetooth (not typically on RP2040)
-SPLIT_KEYBOARD = no             # Not a split keyboard
+LTO_ENABLE = yes
 
-# Tap dance (optional - uncomment to enable)
-# TAP_DANCE_ENABLE = yes
-
-# Combo keys (optional - uncomment to enable)
-# COMBO_ENABLE = yes
-
-# Macro recording (optional - uncomment to enable)
-# DYNAMIC_MACRO_ENABLE = yes
-
-# RGB Underglow (optional - uncomment to enable)
-# RGBLIGHT_ENABLE = yes
-# RGBLIGHT_DRIVER = ws2812
 
 # Per-key RGB (optional - uncomment to enable)
 # RGB_MATRIX_ENABLE = yes
