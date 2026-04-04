@@ -28,9 +28,6 @@
 /* Define if matrix has ghost (lacks diodes) */
 /* #define MATRIX_HAS_GHOST */
 
-/* Set 0 if debouncing disabled for faster response, 1 if enabled */
-#define DEBOUNCE 20
-
 /* Mechanical locking support. Use KC.LCAP, KC.LNUM or KC.LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 
