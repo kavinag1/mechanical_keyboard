@@ -137,16 +137,28 @@ Plugged it in via USB and went through every single key to make sure the matrix 
 
 ---
 
-## The Files
+## Repository Structure
 
-Here's what makes this keyboard tick:
-
-| File | What it does |
-|------|-------------|
-| `config.h` | Tells QMK which GPIO pins are rows and columns |
-| `keymaps/default/keymap.c` | Defines the QWERTY layout and function layer |
-| `rules.mk` | Build configuration for the Pico |
-| `info.json` | Keyboard metadata for QMK tools |
+```
+├── cad/                    # 3D CAD files
+│   ├── bottom_case.step    # Bottom case design
+│   └── top_case.step       # Top case design
+├── pcb/                    # PCB design files (KiCad)
+│   ├── ScottoModules.kicad_pcb
+│   ├── ScottoModules.kicad_prl
+│   ├── ScottoModules.kicad_pro
+│   └── ScottoModules.kicad_sch
+├── production_material/    # Manufacturing files
+│   ├── MECHANICAL KEYBOARD-bom.csv   # Bill of materials
+│   └── gebres.zip          # Gerber files for PCB fabrication
+├── firmware/               # QMK firmware source
+│   ├── config.h            # GPIO pin assignments (rows/columns)
+│   ├── rules.mk            # Build configuration for the Pico
+│   ├── info.json           # Keyboard metadata for QMK tools
+│   └── keymaps/default/keymap.c  # QWERTY layout and function layer
+├── docs/                   # Additional documentation
+└── images/                 # Build screenshots
+```
 
 ---
 
@@ -205,7 +217,7 @@ F1–F12, arrow keys, and media controls.
 - Use a multimeter to test continuity from row through diode to column
 
 ### A key types the wrong character
-- Check the row/column position in `keymap.c` against the physical layout
+- Check the row/column position in `firmware/keymaps/default/keymap.c` against the physical layout
 - Recompile and reflash the firmware
 
 ### Multiple keys activate at once (ghosting)
