@@ -92,6 +92,23 @@ Here's what makes this keyboard work:
 - **rules.mk** - Build configuration for the Pico
 - **info.json** - Keyboard metadata for QMK tools
 
+## Bill of Materials (BOM)
+
+| Component | Purpose | Qty | Cost (USD) | Distributor | Link |
+|-----------|---------|-----|-----------|-------------|------|
+| Micro USB Cable | To connect the Pico | 1 | $1.62 | Amazon | [Buy](https://www.amazon.in/Ambrane-Unbreakable-Charging-Braided-Android/dp/B082LZGK39/) |
+| 6mm Tactile Reset Button (SW1) | Reset button | 1 | $1.62 | Amazon | [Buy](https://www.amazon.in/ElectroBot-Momentary-Tactile-Push-Button/dp/B07PRRRBRY/) |
+| 0.1uF Capacitor SMD 0805 (C1) | For the reset switch | 1 | $1.13 | Amazon | [Buy](https://www.amazon.in/0-1uF-100nF-Capacitor-0805-pack/dp/B0CMXNHQKP) |
+| M2 Heat Set Inserts | For case assembly | 1 pack | $3.31 | Amazon | [Buy](https://www.amazon.in/BRASS-WAREHOUSE-Knurled-Threaded-Printing/dp/B0FMPZ3QHL/) |
+| M2 Screws (20 pack) | Screwing the case | 1 pack | $1.93 | Amazon | [Buy](https://www.amazon.in/Tia-Golden-Screws-Length-Approx-480pcs/dp/B07VWKBHYZ/) |
+| Keycaps | Keycaps for the keyboard | 1 set | $10.76 | Meckeys | [Buy](https://meckeys.com/shop/accessories/keyboard-accessories/keycaps/grey-black-keycaps/) |
+| Gateron Switches | Switches for the keys | 7 packs | $15.12 | Meckeys | [Buy](https://meckeys.com/shop/accessories/keyboard-accessories/key-switches/gateron-optical-switch-pack/) |
+| Raspberry Pi Pico | Microcontroller (the brain) | 1 | $4.00 | Robu.in | [Buy](https://robu.in/product/raspberry-pi-pico/) |
+| 3D Printed Case | The keyboard case | 1 | $16.18 | Robu.in | — |
+| 1N4148 Diode | Anti-ghosting diodes for the circuit | 1 pack | $3.08 | Amazon | [Buy](https://www.amazon.in/Circuit-Ranger-Switching-Electronic-Projects/dp/B0FJLP12GX) |
+| PCB | The keyboard PCB | 5 | $36.01 | JLCPCB | — |
+| **Total** | | | **$94.86** | | |
+
 ## How to Compile It
 
 If you want to build the firmware yourself:
