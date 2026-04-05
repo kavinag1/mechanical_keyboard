@@ -37,11 +37,11 @@ Row3    Shft Z    X    C    V    B    N    M    ,    .    /     None  None  Shft
 Row4    Ctrl Win  Alt  None None Space None None RAlt RGui None None None  Ctrl
 ```
 
-![](<images/Screenshot 2026-04-02 175157.png>)
+![Matrix layout overview](images/matrix-layout-overview.png)
 
 *The full 5×14 key matrix taking shape in the layout tool.*
 
-![](<images/Screenshot 2026-04-02 175205.png>)
+![Matrix layout detail](images/matrix-layout-detail.png)
 
 *Zooming in to check the key positions matched the ANSI standard.*
 
@@ -79,11 +79,11 @@ This diode arrangement:
 - Enables N-key rollover (press as many keys as you want simultaneously)
 - Protects against electrical noise
 
-![](<images/Screenshot 2026-04-02 194001.png>)
+![Schematic pin mapping](images/schematic-pin-mapping.png)
 
 *The pin mapping — rows on one side, columns on the other.*
 
-![](<images/Screenshot 2026-04-03 162539.png>)
+![Schematic diode orientation](images/schematic-diode-orientation.png)
 
 *Confirming the diode orientation was consistent across the schematic.*
 
@@ -93,11 +93,11 @@ This diode arrangement:
 
 With the schematic done, I moved on to laying out and routing the actual PCB. Getting all the traces to fit cleanly without shorts — especially around the diode footprints — took a fair bit of iteration.
 
-![](<images/Screenshot 2026-04-03 162517.png>)
+![PCB routing](images/pcb-routing.png)
 
 *The PCB routing in progress — getting all those traces to play nicely together.*
 
-![](<images/Screenshot 2026-04-03 162530.png>)
+![PCB diode footprints](images/pcb-diode-footprints.png)
 
 *Checking the diode footprints before committing to the final layout.*
 
@@ -109,13 +109,25 @@ The PCB needed a home. I designed a case that would hold the PCB, the Raspberry 
 
 Getting the mounting holes and switch cutouts to line up precisely with the PCB took a few rounds of tweaking.
 
-![](<images/Screenshot 2026-04-03 173027.png>)
+![Case design overview](images/case-design-overview.png)
 
 *The case design coming together — cutouts aligned with the switch matrix.*
 
-![](<images/Screenshot 2026-04-03 173038.png>)
+![Case Pico placement](images/case-pico-placement.png)
 
 *A closer look at how the Pico sits inside the case.*
+
+![Assembly overview](images/assembly-overview.png)
+
+*Overview of the assembled build.*
+
+![Assembly detail 1](images/assembly-detail-1.png)
+
+*Assembly close-up — first detail view.*
+
+![Assembly detail 2](images/assembly-detail-2.png)
+
+*Assembly close-up — second detail view.*
 
 ---
 

@@ -1,15 +1,17 @@
-# Images for Your Keyboard Build
+# Images for the Mechanical Keyboard Build
 
-Add your build images here. The main README.md expects these files:
+All images used in the main README.md are stored here with descriptive filenames.
 
-1. **pcb-layout.png** - Your PCB layout design (schematic showing 5x14 grid)
-2. **pcb-routing.png** - The routed PCB traces/layers
-3. **diode-diagram.png** - Close-up or diagram showing how diodes are connected
-4. **case-design.png** - CAD model or rendering of your case design
-5. **case-assembled.png** - Photo of the case assembled with PCB inside
-6. **assembly-process.png** - Photos from building/soldering process
-7. **finished-keyboard.png** - Final photo of the working keyboard
-
-You can name them differently if you prefer - just update the image filenames in the main README.md to match.
-
-Image formats: PNG, JPG, or GIF work best.
+| File | Description |
+|------|-------------|
+| `matrix-layout-overview.png` | Full 5×14 key matrix taking shape in the layout tool (Step 1) |
+| `matrix-layout-detail.png` | Zoomed-in view confirming key positions match the ANSI standard (Step 1) |
+| `schematic-pin-mapping.png` | Pin mapping schematic — rows on one side, columns on the other (Step 2) |
+| `schematic-diode-orientation.png` | Confirming consistent diode orientation across the schematic (Step 2) |
+| `pcb-routing.png` | PCB routing in progress — traces laid out across the board (Step 3) |
+| `pcb-diode-footprints.png` | Diode footprints checked before committing to the final PCB layout (Step 3) |
+| `case-design-overview.png` | Case design with cutouts aligned to the switch matrix (Step 4) |
+| `case-pico-placement.png` | Close-up of how the Raspberry Pi Pico sits inside the case (Step 4) |
+| `assembly-overview.png` | Overview of the assembly process (Step 4 / build) |
+| `assembly-detail-1.png` | Assembly detail — first close-up during build (Step 4 / build) |
+| `assembly-detail-2.png` | Assembly detail — second close-up during build (Step 4 / build) |
