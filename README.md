@@ -20,7 +20,8 @@ Row2    K7    K8    K9
 ```
 
 With 3 row pins and 3 column pins you can read 9 keys — that's the core idea. Scale it up and you get a full keyboard.
-
+![](<images/Screenshot 2026-04-02 175157.png>)
+![](<images/Screenshot 2026-04-02 175205.png>)
 Once I understood the concept, I mapped out the full 60-key layout I wanted to build — a standard 60% ANSI arrangement: 5 rows and 14 columns.
 
 **The Matrix:**
@@ -37,11 +38,12 @@ Row3    Shft Z    X    C    V    B    N    M    ,    .    /     None  None  Shft
 Row4    Ctrl Win  Alt  None None Space None None RAlt RGui None None None  Ctrl
 ```
 
-![](<images/Screenshot 2026-04-02 175157.png>)
+![](<images/Screenshot 2026-04-02 194001.png>)
+
 
 *The full 5×14 key matrix taking shape in the layout tool.*
 
-![](<images/Screenshot 2026-04-02 175205.png>)
+![](<images/Screenshot 2026-04-03 162539.png>)
 
 *Zooming in to check the key positions matched the ANSI standard.*
 
@@ -79,11 +81,10 @@ This diode arrangement:
 - Enables N-key rollover (press as many keys as you want simultaneously)
 - Protects against electrical noise
 
-![](<images/Screenshot 2026-04-02 194001.png>)
-
+![](<images/Screenshot 2026-04-03 162517.png>)
 *The pin mapping — rows on one side, columns on the other.*
 
-![](<images/Screenshot 2026-04-03 162539.png>)
+![](<images/Screenshot 2026-04-03 162530.png>)
 
 *Confirming the diode orientation was consistent across the schematic.*
 
@@ -93,11 +94,11 @@ This diode arrangement:
 
 With the schematic done, I moved on to laying out and routing the actual PCB. Getting all the traces to fit cleanly without shorts — especially around the diode footprints — took a fair bit of iteration.
 
-![](<images/Screenshot 2026-04-03 162517.png>)
+![](<images/Screenshot 2026-04-03 173027.png>)
 
 *The PCB routing in progress — getting all those traces to play nicely together.*
 
-![](<images/Screenshot 2026-04-03 162530.png>)
+![](<images/Screenshot 2026-04-03 173038.png>)
 
 *Checking the diode footprints before committing to the final layout.*
 
@@ -109,11 +110,11 @@ The PCB needed a home. I designed a case that would hold the PCB, the Raspberry 
 
 Getting the mounting holes and switch cutouts to line up precisely with the PCB took a few rounds of tweaking.
 
-![](<images/Screenshot 2026-04-03 173027.png>)
+![](<images/Screenshot 2026-04-03 193055.png>)
 
 *The case design coming together — cutouts aligned with the switch matrix.*
 
-![](<images/Screenshot 2026-04-03 173038.png>)
+![](<images/Screenshot 2026-04-03 193108.png>)
 
 *A closer look at how the Pico sits inside the case.*
 
