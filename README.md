@@ -117,18 +117,7 @@ Getting the mounting holes and switch cutouts to line up precisely with the PCB 
 
 *A closer look at how the Pico sits inside the case.*
 
----
 
-### Step 5: Firmware (In Progress)
-
-The plan is to use QMK — an open-source keyboard firmware framework — to program the Pico with two layers:
-
-- **Layer 0:** Standard QWERTY layout for everyday typing
-- **Layer 1:** Function keys (F1–F12), navigation arrows, and media controls — all accessible by holding `Fn`
-
-The firmware hasn't been written yet — this is the next step.
-
----
 
 ## Bill of Materials (BOM)
 
