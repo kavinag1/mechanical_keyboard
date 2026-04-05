@@ -1,18 +1,29 @@
 # Building My Own 60% Mechanical Keyboard with a Raspberry Pi Pico
 
-I've always wanted a keyboard that was truly *mine* — not just a different keycap set, but something I designed and built from the ground up. So I did it. This is the story of how I went from a blank screen to a fully working 60% mechanical keyboard powered by a Raspberry Pi Pico.
+I've always wanted a keyboard that was truly *mine* — not just a different keycap set, but something I designed and built from the ground up. So I did it. This is the story of how I went from a blank screen to a 60% mechanical keyboard powered by a Raspberry Pi Pico.
 
 ---
 
 ## The Journey
 
-### Step 1: Designing the PCB Layout
+### Step 1: Learning What a Keyboard Matrix Is
 
-Everything started with the layout. I decided on a 60% form factor — 5 rows and 14 columns, totalling 60 keys in a standard ANSI arrangement. I had to figure out the exact position of every switch and how the electrical matrix would connect them all.
+Before touching any design tools, I had to understand how keyboards actually work electrically. The answer is a *key matrix* — instead of wiring every single key directly to a microcontroller pin, you arrange the switches in a grid of rows and columns. The controller scans each row one at a time and reads which columns register a connection, letting you detect any key with just `rows + columns` pins instead of one pin per key.
 
-I spent an evening mapping out the grid, making sure the rows and columns lined up cleanly before touching any routing tools.
+To wrap my head around it, I started with a simple 3×3 example:
 
-**The Matrix I Landed On:**
+```
+       Col0  Col1  Col2
+Row0    K1    K2    K3
+Row1    K4    K5    K6
+Row2    K7    K8    K9
+```
+
+With 3 row pins and 3 column pins you can read 9 keys — that's the core idea. Scale it up and you get a full keyboard.
+
+Once I understood the concept, I mapped out the full 60-key layout I wanted to build — a standard 60% ANSI arrangement: 5 rows and 14 columns.
+
+**The Matrix:**
 - 5 row lines
 - 14 column lines
 - 60 key positions in standard ANSI format
@@ -26,11 +37,9 @@ Row3    Shft Z    X    C    V    B    N    M    ,    .    /     None  None  Shft
 Row4    Ctrl Win  Alt  None None Space None None RAlt RGui None None None  Ctrl
 ```
 
-Here's what the layout looked like when I first got it working in the design tool:
-
 ![](<images/Screenshot 2026-04-02 175157.png>)
 
-*The full 5×14 key matrix taking shape.*
+*The full 5×14 key matrix taking shape in the layout tool.*
 
 ![](<images/Screenshot 2026-04-02 175205.png>)
 
@@ -38,11 +47,11 @@ Here's what the layout looked like when I first got it working in the design too
 
 ---
 
-### Step 2: Routing the Electrical Design
+### Step 2: Designing the Schematic
 
-With the layout sorted, I moved on to the actual circuit. The biggest challenge here was getting the diodes right — every single switch needs a 1N4148 diode to prevent *ghosting*, where pressing multiple keys at once causes phantom keypresses you didn't intend.
+With the matrix planned, I moved on to the electrical schematic. The biggest challenge was getting the diodes right — every single switch needs a 1N4148 diode to prevent *ghosting*, where pressing multiple keys at once causes phantom keypresses you didn't intend.
 
-I wired the rows to the Pico's output pins and the columns to the input pins with pull-up resistors, routing traces between them carefully so nothing shorted.
+I wired the rows to the Pico's output pins and the columns to the input pins with pull-up resistors.
 
 **Pin Assignments:**
 - Row pins (outputs): GP13, GP14, GP15, GP16, GP17
@@ -74,6 +83,16 @@ This diode arrangement:
 
 *The pin mapping — rows on one side, columns on the other.*
 
+![](<images/Screenshot 2026-04-03 162539.png>)
+
+*Confirming the diode orientation was consistent across the schematic.*
+
+---
+
+### Step 3: Routing the PCB
+
+With the schematic done, I moved on to laying out and routing the actual PCB. Getting all the traces to fit cleanly without shorts — especially around the diode footprints — took a fair bit of iteration.
+
 ![](<images/Screenshot 2026-04-03 162517.png>)
 
 *The PCB routing in progress — getting all those traces to play nicely together.*
@@ -82,17 +101,13 @@ This diode arrangement:
 
 *Checking the diode footprints before committing to the final layout.*
 
-![](<images/Screenshot 2026-04-03 162539.png>)
-
-*A small but important detail — confirming the diode orientation was consistent.*
-
 ---
 
-### Step 3: Designing the Case
+### Step 4: Designing the Case
 
 The PCB needed a home. I designed a case that would hold the PCB, the Raspberry Pi Pico, and all 60 switches — keeping everything rigid, protected, and not ugly.
 
-This part took more iteration than I expected. Getting the mounting holes and switch cutouts to line up precisely with the PCB took a few rounds of tweaking.
+Getting the mounting holes and switch cutouts to line up precisely with the PCB took a few rounds of tweaking.
 
 ![](<images/Screenshot 2026-04-03 173027.png>)
 
@@ -104,61 +119,14 @@ This part took more iteration than I expected. Getting the mounting holes and sw
 
 ---
 
-### Step 4: Putting It All Together
+### Step 5: Firmware (In Progress)
 
-This was the most satisfying part. I soldered the diodes onto each switch one by one, then ran the row and column wires, and finally connected the Raspberry Pi Pico. Once everything was wired up I slotted the PCB into the case and gave it a first test.
-
-![](<images/Screenshot 2026-04-03 193041.png>)
-
-*The assembled board — soldering complete, everything seated in the case.*
-
-![](<images/Screenshot 2026-04-03 193055.png>)
-
-*A wider view of the finished build before the keycaps went on.*
-
-![](<images/Screenshot 2026-04-03 193108.png>)
-
-*The completed keyboard, keycaps on, ready to type.*
-
----
-
-### Step 5: Flashing the Firmware
-
-I used QMK — an open-source keyboard firmware framework — to program the Pico. I set up two layers:
+The plan is to use QMK — an open-source keyboard firmware framework — to program the Pico with two layers:
 
 - **Layer 0:** Standard QWERTY layout for everyday typing
 - **Layer 1:** Function keys (F1–F12), navigation arrows, and media controls — all accessible by holding `Fn`
 
----
-
-### Step 6: Testing Every Key
-
-Plugged it in via USB and went through every single key to make sure the matrix was reading correctly, no ghosting, no stuck keys. It worked first try (well, after fixing one dodgy solder joint on the `B` key).
-
----
-
-## Repository Structure
-
-```
-├── cad/                    # 3D CAD files
-│   ├── bottom_case.step    # Bottom case design
-│   └── top_case.step       # Top case design
-├── pcb/                    # PCB design files (KiCad)
-│   ├── ScottoModules.kicad_pcb
-│   ├── ScottoModules.kicad_prl
-│   ├── ScottoModules.kicad_pro
-│   └── ScottoModules.kicad_sch
-├── production_material/    # Manufacturing files
-│   ├── MECHANICAL KEYBOARD-bom.csv   # Bill of materials
-│   └── gebres.zip          # Gerber files for PCB fabrication
-├── firmware/               # QMK firmware source
-│   ├── config.h            # GPIO pin assignments (rows/columns)
-│   ├── rules.mk            # Build configuration for the Pico
-│   ├── info.json           # Keyboard metadata for QMK tools
-│   └── keymaps/default/keymap.c  # QWERTY layout and function layer
-├── docs/                   # Additional documentation
-└── images/                 # Build screenshots
-```
+The firmware hasn't been written yet — this is the next step.
 
 ---
 
@@ -181,19 +149,7 @@ Plugged it in via USB and went through every single key to make sure the matrix 
 
 ---
 
-## Building the Firmware Yourself
-
-If you want to compile and flash the firmware:
-
-```bash
-qmk compile -kb mechanical_keyboard -km default
-```
-
-This produces a `.uf2` file. Hold `BOOTSEL` on the Pico while plugging it in, and it mounts as a drive — just drag the `.uf2` onto it.
-
----
-
-## Key Mappings
+## Planned Key Mappings
 
 **Layer 0 — QWERTY:**
 ```
@@ -206,27 +162,4 @@ Ctrl Win Alt         Space      Alt Win Ctrl
 
 **Layer 1 — Function (hold Fn):**
 F1–F12, arrow keys, and media controls.
-
----
-
-## Troubleshooting
-
-### A key isn't responding
-- Check the solder joint at the switch — a cold joint is the most common culprit
-- Verify the diode is in the right orientation (stripe = cathode, pointing toward the column)
-- Use a multimeter to test continuity from row through diode to column
-
-### A key types the wrong character
-- Check the row/column position in `firmware/keymaps/default/keymap.c` against the physical layout
-- Recompile and reflash the firmware
-
-### Multiple keys activate at once (ghosting)
-- A diode is likely missing or reversed — check every switch
-- Inspect for solder bridges between traces
-
-### The computer doesn't detect the keyboard
-- Put the Pico into bootloader mode (hold `BOOTSEL` while plugging in)
-- Make sure you're using a data USB cable, not a charge-only one
-- Try a different USB port
-- Check that QMK compiled without errors
 
