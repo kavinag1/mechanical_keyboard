@@ -27,10 +27,13 @@ SPLIT_KEYBOARD = no
 
 LTO_ENABLE = yes
 
-# OLED_DRIVER_ENABLE = yes
+# OLED display (SSD1306 128x32 via I2C, SCL=GP26, SDA=GP25)
+OLED_ENABLE = yes
+OLED_DRIVER = ssd1306
 
-# Encoder support (optional - uncomment to enable)
-# ENCODER_ENABLE = yes
+# Rotary encoder (A=GP27, B=GP29)
+ENCODER_ENABLE = yes
+ENCODER_MAP_ENABLE = yes
 
 # LTO for size optimization
 LTO_ENABLE = yes
