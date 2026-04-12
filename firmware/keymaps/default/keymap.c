@@ -19,3 +19,55 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
     },
 };
+
+// Encoder map: rotate to change volume, press to mute
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [1] = { ENCODER_CCW_CW(KC_MPRV, KC_MNXT) },
+};
+#endif
+
+// OLED display
+#ifdef OLED_ENABLE
+static void render_status(void) {
+    // Keyboard name
+    oled_write_P(PSTR("60% KB | "), false);
+
+    // Current layer
+    oled_write_P(PSTR("Layer: "), false);
+    switch (get_highest_layer(layer_state)) {
+        case 0:
+            oled_write_P(PSTR("QWERTY  "), false);
+            break;
+        case 1:
+            oled_write_P(PSTR("FN/MEDIA"), false);
+            break;
+        default:
+            oled_write_P(PSTR("UNKNOWN "), false);
+            break;
+    }
+
+    oled_write_P(PSTR("\n"), false);
+
+    // Modifier indicators
+    uint8_t mods = get_mods() | get_oneshot_mods();
+    oled_write_P(mods & MOD_MASK_SHIFT ? PSTR("SFT ") : PSTR("    "), false);
+    oled_write_P(mods & MOD_MASK_CTRL  ? PSTR("CTL ") : PSTR("    "), false);
+    oled_write_P(mods & MOD_MASK_ALT   ? PSTR("ALT ") : PSTR("    "), false);
+    oled_write_P(mods & MOD_MASK_GUI   ? PSTR("GUI ") : PSTR("    "), false);
+
+    oled_write_P(PSTR("\n"), false);
+
+    // Lock key indicators
+    led_t leds = host_keyboard_led_state();
+    oled_write_P(leds.caps_lock   ? PSTR("CAPS ") : PSTR("     "), false);
+    oled_write_P(leds.num_lock    ? PSTR("NUM ")  : PSTR("    "), false);
+    oled_write_P(leds.scroll_lock ? PSTR("SCR ")  : PSTR("    "), false);
+}
+
+bool oled_task_user(void) {
+    render_status();
+    return false;
+}
+#endif

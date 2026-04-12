@@ -58,6 +58,8 @@ I wired the rows to the Pico's output pins and the columns to the input pins wit
 **Pin Assignments:**
 - Row pins (outputs): GP13, GP14, GP15, GP16, GP17
 - Column pins (inputs): GP0–GP12, GP18
+- OLED SCL: GP26 | OLED SDA: GP25 (I2C1)
+- Encoder A: GP27 | Encoder B: GP29
 - Each switch: 1N4148 diode with anode at the switch, cathode toward the column
 
 **How each switch connects:**
@@ -131,6 +133,8 @@ Getting the mounting holes and switch cutouts to line up precisely with the PCB 
 | M2 Screws (20 pack) | Screwing the case | 1 pack | $1.93 | Amazon | [Buy](https://www.amazon.in/Tia-Golden-Screws-Length-Approx-480pcs/dp/B07VWKBHYZ/) |
 | Keycaps | Keycaps for the keyboard | 1 set | $10.76 | Meckeys | [Buy](https://meckeys.com/shop/accessories/keyboard-accessories/keycaps/grey-black-keycaps/) |
 | Gateron Switches | Switches for the keys | 7 packs | $15.12 | Meckeys | [Buy](https://meckeys.com/shop/accessories/keyboard-accessories/key-switches/gateron-optical-switch-pack/) |
+| SSD1306 OLED (128×32) | Display for layer/modifier status | 1 | ~$2.00 | Amazon | — |
+| Rotary Encoder (EC11) | Volume / media control knob | 1 | ~$1.50 | Amazon | — |
 | Raspberry Pi Pico | Microcontroller (the brain) | 1 | $4.00 | Robu.in | [Buy](https://robu.in/product/raspberry-pi-pico/) |
 | 3D Printed Case | The keyboard case | 1 | $16.18 | Robu.in | — |
 | 1N4148 Diode | Anti-ghosting diodes for the circuit | 1 pack | $3.08 | Amazon | [Buy](https://www.amazon.in/Circuit-Ranger-Switching-Electronic-Projects/dp/B0FJLP12GX) |

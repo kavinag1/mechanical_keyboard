@@ -23,3 +23,17 @@
 
 #define USB_POLLING_INTERVAL_MS 1
 #define FORCE_NKRO
+
+// OLED display (SSD1306 128x32 via I2C)
+// SCL = GP26, SDA = GP25
+#define I2C_DRIVER I2C1_DRIVER
+#define I2C1_SCL_PIN GP26
+#define I2C1_SDA_PIN GP25
+#define OLED_DISPLAY_128X32
+#define OLED_TIMEOUT 30000
+
+// Rotary encoder
+// A = GP27, B = GP29
+#define ENCODERS_PAD_A { GP27 }
+#define ENCODERS_PAD_B { GP29 }
+#define ENCODER_RESOLUTION 4
