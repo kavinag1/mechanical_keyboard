@@ -85,7 +85,7 @@ This diode arrangement:
 
 ![](<images/Screenshot 2026-04-12 173455.png>)
 
-*The consolidated schematic showing the Pico pin mapping, OLED, encoder, and matrix wiring.*
+*Updated schematic showing the Pico pin mapping, OLED, encoder, and matrix wiring.*
 
 ---
 
@@ -93,13 +93,13 @@ This diode arrangement:
 
 With the schematic done, I moved on to laying out and routing the actual PCB. Getting all the traces to fit cleanly without shorts — especially around the diode footprints — took a fair bit of iteration.
 
-![](<images/Screenshot 2026-04-03 173027.png>)
+![](<images/Screenshot 2026-04-12 173311.png>)
 
-*The PCB routing in progress — getting all those traces to play nicely together.*
+*PCB routing in progress, with the switch matrix and controller area cleaned up for manufacture.*
 
-![](<images/Screenshot 2026-04-03 173038.png>)
+![](<images/Screenshot 2026-04-12 173603.png>)
 
-*Checking the diode footprints before committing to the final layout.*
+*A 3D PCB render used to check component placement and the overall board shape.*
 
 ---
 
@@ -109,13 +109,21 @@ The PCB needed a home. I designed a case that would hold the PCB, the Raspberry 
 
 Getting the mounting holes and switch cutouts to line up precisely with the PCB took a few rounds of tweaking.
 
-![](<images/Screenshot 2026-04-03 193041.png>)
+![](<images/Screenshot 2026-04-12 175226.png>)
 
-*The case and PCB assembled together to verify fit, alignment, and controller placement.*
+*Top case layout showing the switch cutouts and mounting points.*
+
+![](<images/Screenshot 2026-04-12 175235.png>)
+
+*Exploded case view used to verify the PCB fit and controller clearance.*
+
+![](<images/Screenshot 2026-04-12 175245.png>)
+
+*Top-down case fit check with the cutouts aligned to the keyboard layout.*
 
 
 
-## Bill of Materials (BOM)
+## Bill of Materials
 
 | Component | Purpose | Qty | Cost (USD) | Distributor | Link |
 |-----------|---------|-----|-----------|-------------|------|
