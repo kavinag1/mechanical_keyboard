@@ -62,8 +62,8 @@ static void render_status(void) {
     // Lock key indicators
     led_t leds = host_keyboard_led_state();
     oled_write_P(leds.caps_lock   ? PSTR("CAPS ") : PSTR("     "), false);
-    oled_write_P(leds.num_lock    ? PSTR("NUM ")  : PSTR("    "), false);
-    oled_write_P(leds.scroll_lock ? PSTR("SCR ")  : PSTR("    "), false);
+    oled_write_P(leds.num_lock    ? PSTR("NUM  ") : PSTR("     "), false);
+    oled_write_P(leds.scroll_lock ? PSTR("SCR  ") : PSTR("     "), false);
 }
 
 bool oled_task_user(void) {
