@@ -47,13 +47,13 @@ the peices I used are given in the BOM if you want to use the same parts
 
 ### Step 4: Designing the Case
 
-Then the final step was designing the case itself. For this I would reccomened exporting the PCB as a stl file and adding it in your cad to see if it fits your case or not. It saved me multiple times as I messed up the dimensions but this is the final case I eneded up with which perectly fits the PCB inside.
+Then the final step was designing the case itself. For this I would reccomened exporting the PCB as a stl file and adding it in your cad to see if it fits your case or not. It saved me multiple times as I messed up the dimensions but this is the final case I eneded up with which perectly fits the PCB inside. for the case as you can see I went with a open desgin wherethe top part is open so that i can somewhat see the PCB just to remind me this is something I have created on my own.
 
-![](<images/Screenshot 2026-04-12 175226.png>)
+![](<images/Screenshot from 2026-05-10 15-09-00.png>)
 
 
 
-![](<images/Screenshot 2026-04-12 175235.png>)
+![](<images/Screenshot from 2026-05-10 15-09-43.png>)
 
 
 
