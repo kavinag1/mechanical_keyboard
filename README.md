@@ -25,75 +25,41 @@ this is the layout of the keyboard I went with
 
 ### Step 2: Designing the Schematic
 
-With the matrix planned, I moved on to the electrical schematic. The biggest challenge was getting the diodes right — every single switch needs a 1N4148 diode to prevent *ghosting*, where pressing multiple keys at once causes phantom keypresses you didn't intend.
-
-I wired the rows to the Pico's output pins and the columns to the input pins with pull-up resistors.
-
-**Pin Assignments:**
-- Row pins (outputs): GP13, GP14, GP15, GP16, GP17
-- Column pins (inputs): GP0–GP12, GP18
-- OLED SCL: GP26 | OLED SDA: GP25 (I2C1)
-- Encoder A: GP27 | Encoder B: GP29
-- Each switch: 1N4148 diode with anode at the switch, cathode toward the column
-
-**How each switch connects:**
-```
-         Row Output (GP13-17)
-              |
-         ┌────┴────┐
-         │  Switch │
-         └────┬────┘
-              |
-         ┌────▼────┐
-         │ 1N4148  │  (Anode at switch, Cathode toward column)
-         │ Diode   │
-         └────┬────┘
-              |
-    Column Input (GP0-12, GP18) with 10kΩ pull-up to 3.3V
-```
-
-This diode arrangement:
-- Prevents ghosting (phantom keypresses)
-- Enables N-key rollover (press as many keys as you want simultaneously)
-- Protects against electrical noise
+now after finalising the layout of my keyboard I needed to make the schematic of the keyboard. each key would need a switch and then a diode connected to it to prevnt phantom keypresses as if the diode are not present, when you are pressing multiple keys some keys you didnt press will also register and we dont want that. So I arranged the keys in a form of a matrix then conected the rows and collom pins to my GPIO pin in the pico. and then I also added a oled screen and a knob for the keyabord cause why not.
 
 ![](<images/Screenshot 2026-04-12 173455.png>)
 
-*Updated schematic showing the Pico pin mapping, OLED, encoder, and matrix wiring.*
 
 ---
 
 ### Step 3: Routing the PCB
 
-With the schematic done, I moved on to laying out and routing the actual PCB. Getting all the traces to fit cleanly without shorts — especially around the diode footprints — took a fair bit of iteration.
-
+With the schematic done, I moved on to laying out and routing the actual PCB. 
 ![](<images/Screenshot 2026-04-12 173311.png>)
 
-*PCB routing in progress, with the switch matrix and controller area cleaned up for manufacture.*
+
 
 ![](<images/Screenshot 2026-04-12 173603.png>)
 
-*A 3D PCB render used to check component placement and the overall board shape.*
+the peices I used are given in the BOM if you want to use the same parts
 
 ---
 
 ### Step 4: Designing the Case
 
-The PCB needed a home. I designed a case that would hold the PCB, the Raspberry Pi Pico, and all 60 switches — keeping everything rigid, protected, and not ugly.
-
-Getting the mounting holes and switch cutouts to line up precisely with the PCB took a few rounds of tweaking.
+Then the final step was designing the case itself. For this I would reccomened exporting the PCB as a stl file and adding it in your cad to see if it fits your case or not. It saved me multiple times as I messed up the dimensions but this is the final case I eneded up with which perectly fits the PCB inside.
 
 ![](<images/Screenshot 2026-04-12 175226.png>)
 
-*Top case layout showing the switch cutouts and mounting points.*
+
 
 ![](<images/Screenshot 2026-04-12 175235.png>)
 
-*Exploded case view used to verify the PCB fit and controller clearance.*
+
 
 ![](<images/Screenshot 2026-04-12 175245.png>)
 
-*Top-down case fit check with the cutouts aligned to the keyboard layout.*
+
 
 
 
@@ -115,17 +81,5 @@ Getting the mounting holes and switch cutouts to line up precisely with the PCB 
 
 ---
 
-## Planned Key Mappings
-
-**Layer 0 — QWERTY:**
-```
-Esc  1  2  3  4  5  6  7  8  9  0  -  =  Backspace
-Tab  Q  W  E  R  T  Y  U  I  O  P  [  ]  \
-Caps A  S  D  F  G  H  J  K  L  ;  '  Enter
-Shift Z  X  C  V  B  N  M  ,  .  /  Shift
-Ctrl Win Alt         Space      Alt Win Ctrl
-```
-
-**Layer 1 — Function (hold Fn):**
-F1–F12, arrow keys, and media controls.
+rols.
 
