@@ -1,6 +1,6 @@
 # Building My Own 60% Mechanical Keyboard with a Raspberry Pi Pico
 
-I've always wanted a keyboard that was truly *mine* — not just a different keycap set, but something I designed and built from the ground up. So I did it. This is the story of how I went from a blank screen to a 60% mechanical keyboard powered by a Raspberry Pi Pico.
+I have been wanting a mechanical keyboard. So instead of buying one why not make one. This was not really a easy journey but I am proud of what all I have learnt
 
 ---
 
@@ -8,44 +8,18 @@ I've always wanted a keyboard that was truly *mine* — not just a different key
 
 ### Step 1: Learning What a Keyboard Matrix Is
 
-Before touching any design tools, I had to understand how keyboards actually work electrically. The answer is a *key matrix* — instead of wiring every single key directly to a microcontroller pin, you arrange the switches in a grid of rows and columns. The controller scans each row one at a time and reads which columns register a connection, letting you detect any key with just `rows + columns` pins instead of one pin per key.
+so before I could build this keyboard I needed to pratice what keyboard matrix is and understand how it works. So I followed a tutorial to make a simple and easy 3 by 3 keybaord matrix like the one you can see in the image. Keyboard matrix allows you to add more keys and use less number of pins like here I used 9 keys but only used 6 pins. This would be useful in the future when making the actual keyboard cause raspberry pico has only so many number of pins.
 
-To wrap my head around it, I started with a simple 3×3 example:
-
-```
-       Col0  Col1  Col2
-Row0    K1    K2    K3
-Row1    K4    K5    K6
-Row2    K7    K8    K9
-```
-
-With 3 row pins and 3 column pins you can read 9 keys — that's the core idea. Scale it up and you get a full keyboard.
 ![](<images/Screenshot 2026-04-02 175157.png>)
 ![](<images/Screenshot 2026-04-02 175205.png>)
 Once I understood the concept, I mapped out the full 60-key layout I wanted to build — a standard 60% ANSI arrangement: 5 rows and 14 columns.
-
-**The Matrix:**
-- 5 row lines
-- 14 column lines
-- 60 key positions in standard ANSI format
-
-```
-       Col0 Col1 Col2 Col3 Col4 Col5 Col6 Col7 Col8 Col9 Col10 Col11 Col12 Col13
-Row0    Esc  1    2    3    4    5    6    7    8    9    0     -     =     Bksp
-Row1    Tab  Q    W    E    R    T    Y    U    I    O    P     [     ]     \
-Row2    Caps A    S    D    F    G    H    J    K    L    ;     '     None  Entr
-Row3    Shft Z    X    C    V    B    N    M    ,    .    /     None  None  Shft
-Row4    Ctrl Win  Alt  None None Space None None RAlt RGui None None None  Ctrl
-```
+this is the layout of the keyboard I went with
 
 ![](<images/Screenshot 2026-04-02 194001.png>)
 
 
-*The full 5×14 key matrix taking shape in the layout tool.*
 
 ![](<images/Screenshot 2026-04-03 162539.png>)
-
-*Zooming in to check the key positions matched the ANSI standard.*
 
 ---
 
