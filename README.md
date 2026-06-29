@@ -76,8 +76,8 @@ Then the final step was designing the case itself. For this I would reccomened e
 | Raspberry Pi Pico | The brain | 1 | $4.00 | Robu.in | [Buy](https://robu.in/product/raspberry-pi-pico/) |
 | 3D Printed Case | The case | 1 | $16.18 | Robo In | — |
 | DIODE | Its the diode for the circuit | 1 | $3.08 | Amazon | [Buy](https://www.amazon.in/Circuit-Ranger-Switching-Electronic-Projects/dp/B0FJLP12GX) |
-| PCB | It is the pcb of the keyboard | 5 | $36.01 | JLCPCB | — |
-| **Total** | | | **$93.57** | | |
+| PCB | It is the pcb of the keyboard | 5 | $64 | JLCPCB | — |
+| **Total** | | | **$121.57** | | |
 
 ---
 
