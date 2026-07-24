@@ -52,11 +52,15 @@ the peices I used are given in the BOM if you want to use the same parts
 
 ---
 
-### Step 4: adding the screen and the knob (3hr)
+### Step 4:Writing the firmware (1.3hr)
 
-later on I wanted to add the knob and scren as well. for which I had to change the entire PCB again as I need to create more space for both of them. It took me some time to get the pcb right again. I also had to write the firmware and code for it.
+The firmware was developed to act as the core software controlling the mechanical keyboard. I configured the keyboard's key matrix so that every physical switch was correctly mapped to its corresponding keycode and created a custom keymap defining the functionality of each key. 
 
-### Step 5: Designing the Case (2hr + 2hr)
+### Step 5: adding the screen and the knob (3hr)
+
+later on I wanted to add the knob and scren as well. for which I had to change the entire PCB again as I need to create more space for both of them. It took me some time to get the pcb right again. So I had to reroute all the wires makwe the scehmatic again and finally I was able to make it. I also had to make changes to the firmware code.
+
+### Step 6: Designing the Case (2hr + 2hr)
 
 I designed the case two times first was without the screen and the knob and was very basic because I spent time figuuring out how to add the spaces for the keyboard in the first design and then later I changed it to a more ergonomic design.
 
@@ -73,7 +77,7 @@ Then the final step was designing the case itself. For this I would reccomened e
 ![](<images/Screenshot 2026-04-12 175245.png>)
 
 
-### Step 6: making the case cooler (2hr)
+### Step 7: making the case cooler (2hr)
 
 after desiging the case I though of adding something on the back. For that I decided an engraving of the character brook from one peice./ So for that first i found and took inpiration from an arrt to create one fro the aspoect ratio of my keyboard. After which I uploaded the art on inkscape where i made the bitmap of the art. then i saved it as a dxf file which then I imported on onshape. AFter importing I resized itg and placed it on my case. I tried to extrude the whole sketch as it is but that didnt work because some part of the sketch broke. So I slowly divided it into difffernt parts and did it one by one. Overall I am pretty happy with the design.
 
