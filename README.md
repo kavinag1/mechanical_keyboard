@@ -90,16 +90,16 @@ after desiging the case I though of adding something on the back. For that I dec
 | Component | Purpose | Qty | Cost (USD) | Distributor | Link |
 |-----------|---------|-----|-----------|-------------|------|
 | Screen | The screen for the keyboard | 1 | $1.56 | Tech Delivers | [Buy](https://techdelivers.com/0-91-inch-oled-lcd-display-module-blue-128x32-i2c-iic-serial?tag=i2c%20lcd) |
-| Micro USB Cable | To connect the Pico | 1 | $1.62 | Amazon | [Buy](https://www.amazon.in/Ambrane-Unbreakable-Charging-Braided-Android/dp/B082LZGK39/) |
-| M2 Heat Set Inserts | For case assembly | 1 pack | $3.31 | Amazon | [Buy](https://www.amazon.in/BRASS-WAREHOUSE-Knurled-Threaded-Printing/dp/B0FMPZ3QHL/) |
-| M2 Screws (20 pack) | Screwing the case | 1 pack | $1.93 | Amazon | [Buy](https://www.amazon.in/Tia-Golden-Screws-Length-Approx-480pcs/dp/B07VWKBHYZ/) |
-| Keycaps | Keycaps for the keyboard | 1 set | $10.76 | Meckeys | [Buy](https://meckeys.com/shop/accessories/keyboard-accessories/keycaps/grey-black-keycaps/) |
-| Gateron Switches | Switches for the keys | 7 packs | $15.12 | Meckeys | [Buy](https://meckeys.com/shop/accessories/keyboard-accessories/key-switches/gateron-optical-switch-pack/) |
+| Micro USB Cable | To connect the Pico | 1 | $0.41 | robo craze | [Buy](https://robocraze.com/products/usb-to-micro-usb-cable?variant=40192442007705&country=IN&currency=INR&utm_medium=product_sync&utm_source=google&utm_content=sag_organic&utm_campaign=sag_organic&srsltid=AfmBOortLt6ed0G2jRT6m1UXHGk12v08zHm9dfpipg29VpxJJs0qQCNhlS8) |
+| M2 Heat Set Inserts | For case assembly | 1 pack | $0.46 | Robu | [Buy]([https://www.amazon.in/BRASS-WAREHOUSE-Knurled-Threaded-Printing/dp/B0FMPZ3QHL/](https://robu.in/product/m2-x-4-mm-brass-insert/?gad_source=1&gad_campaignid=20387462343&gclid=CjwKCAjwqazPBhALEiwAOuXqdC2PIeLO9FYv27_n0XlEfAAc_tk7Q5QmU1Lylw90cpicqalJPc0k0xoC1_0QAvD_BwE&gbraid=0AAAAADvLFWezTS72c1S_AY11boPv9muTl)) |
+| M2 Screws (20 pack) | Screwing the case | 1 pack | $1.5 | Robu | [Buy]([https://www.amazon.in/Tia-Golden-Screws-Length-Approx-480pcs/dp/B07VWKBHYZ/](https://robu.in/product/easymech-ss-304-csk-countersunk-philips-head-m2-x-8-mm-bolt-25-pcs/?gbraid=0AAAAADvLFWezTS72c1S_AY11boPv9muTl&gclid=CjwKCAjwqazPBhALEiwAOuXqdAjEcDjzmP8nFjrnLJZwyW1j_63GiNewVw8KRRNHgBSEja_1QjdDzRoC5vAQAvD_BwE&gad_source=1&gad_campaignid=20387462343) |
+| Keycaps | Keycaps for the keyboard | 1 set | $13.5 | curisosity caps | [Buy]([https://meckeys.com/shop/accessories/keyboard-accessories/keycaps/grey-black-keycaps/](https://curiositycaps.in/products/cloud-lake-cherry-doubleshot-pbt-keycaps?_pos=14&_fid=805e1adb4&_ss=c)) |
+| Gateron Switches | Switches for the keys | 7 packs | $13.37 | stackskb | [Buy]([https://meckeys.com/shop/accessories/keyboard-accessories/key-switches/gateron-optical-switch-pack/](https://stackskb.com/store/click-inc-of-linear-switch-pack-of-10/)) |
 | Raspberry Pi Pico | The brain | 1 | $4.00 | Robu.in | [Buy](https://robu.in/product/raspberry-pi-pico/) |
 | 3D Printed Case | The case | 1 | $16.18 | Robo In | — |
-| DIODE | Its the diode for the circuit | 1 | $3.08 | Amazon | [Buy](https://www.amazon.in/Circuit-Ranger-Switching-Electronic-Projects/dp/B0FJLP12GX) |
+| DIODE | Its the diode for the circuit | 100 | $1.02 | Robu | [Buy]([https://www.amazon.in/Circuit-Ranger-Switching-Electronic-Projects/dp/B0FJLP12GX](https://robu.in/product/1n4148-1w-zener-diode-pack-of-50/?gclid=CjwKCAjwqazPBhALEiwAOuXqdDxSeVSHAfyNggbR2lhy_VAFvBNVaP29-qa4l7G2ySUgKkgBtbLfTRoC0zQQAvD_BwE&gad_campaignid=17427802703&gbraid=0AAAAADvLFWfPaMOUeeB-SFTwcKxeFjDbO&gad_source=1)) |
 | PCB | It is the pcb of the keyboard | 5 | $64 | JLCPCB | — |
-| **Total** | | | **$121.57** | | |
+| **Total** | | | **$116** | | |
 
 ---
 
