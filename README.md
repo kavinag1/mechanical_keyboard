@@ -6,7 +6,14 @@ I have been wanting a mechanical keyboard. So instead of buying one why not make
 
 ## The Journey
 
-### Step 1: Learning What a Keyboard Matrix Is
+### Step 0: Deciding the keyboard (1hr)
+Over the past few days, I researched different types of keyboards to decide what I want to build. I compared layouts like 40%, 60%, 65%, and TKL, and chose a 60% layout because it offers a good balance between size and functionality while still being manageable to design. I also looked at existing open-source designs like the CO60 to understand how keyboard PCBs are structured and to confirm standard design practices.
+
+I also researched switches, connectivity, and firmware. I selected EPOMAKER Creamy Jade switches because they are MX-style and compatible with standard footprints. I decided to make the keyboard wired instead of wireless to reduce complexity and allow me to use QMK firmware more easily.
+
+The final specifications of my keyboard include a 60% layout, MX-style 5-pin switches, a row-column matrix with 1N4148 diodes, USB-C connectivity, and an STM32-based microcontroller. I will also include a rotary encoder for extra functionality and simple per-key backlighting. This research helped me clearly define my design before moving on to the PCB stage.
+
+### Step 1: Learning What a Keyboard Matrix Is (1.5hr)
 
 so before I could build this keyboard I needed to pratice what keyboard matrix is and understand how it works. So I followed a tutorial to make a simple and easy 3 by 3 keybaord matrix like the one you can see in the image. Keyboard matrix allows you to add more keys and use less number of pins like here I used 9 keys but only used 6 pins. This would be useful in the future when making the actual keyboard cause raspberry pico has only so many number of pins.
 
@@ -23,7 +30,7 @@ this is the layout of the keyboard I went with
 
 ---
 
-### Step 2: Designing the Schematic
+### Step 2: Designing the Schematic (2hr)
 
 now after finalising the layout of my keyboard I needed to make the schematic of the keyboard. each key would need a switch and then a diode connected to it to prevnt phantom keypresses as if the diode are not present, when you are pressing multiple keys some keys you didnt press will also register and we dont want that. So I arranged the keys in a form of a matrix then conected the rows and collom pins to my GPIO pin in the pico. and then I also added a oled screen and a knob for the keyabord cause why not.
 
@@ -32,7 +39,7 @@ now after finalising the layout of my keyboard I needed to make the schematic of
 
 ---
 
-### Step 3: Routing the PCB
+### Step 3: Routing the PCB (1hr)
 
 With the schematic done, I moved on to laying out and routing the actual PCB. 
 ![](<images/Screenshot 2026-04-12 173311.png>)
@@ -45,7 +52,13 @@ the peices I used are given in the BOM if you want to use the same parts
 
 ---
 
-### Step 4: Designing the Case
+### Step 4: adding the screen and the knob (3hr)
+
+later on I wanted to add the knob and scren as well. for which I had to change the entire PCB again as I need to create more space for both of them. It took me some time to get the pcb right again. I also had to write the firmware and code for it.
+
+### Step 5: Designing the Case (2hr + 2hr)
+
+I designed the case two times first was without the screen and the knob and was very basic because I spent time figuuring out how to add the spaces for the keyboard in the first design and then later I changed it to a more ergonomic design.
 
 Then the final step was designing the case itself. For this I would reccomened exporting the PCB as a stl file and adding it in your cad to see if it fits your case or not. It saved me multiple times as I messed up the dimensions but this is the final case I eneded up with which perectly fits the PCB inside. for the case as you can see I went with a open desgin wherethe top part is open so that i can somewhat see the PCB just to remind me this is something I have created on my own.
 
@@ -60,7 +73,12 @@ Then the final step was designing the case itself. For this I would reccomened e
 ![](<images/Screenshot 2026-04-12 175245.png>)
 
 
+### Step 6: making the case cooler (2hr)
 
+after desiging the case I though of adding something on the back. For that I decided an engraving of the character brook from one peice./ So for that first i found and took inpiration from an arrt to create one fro the aspoect ratio of my keyboard. After which I uploaded the art on inkscape where i made the bitmap of the art. then i saved it as a dxf file which then I imported on onshape. AFter importing I resized itg and placed it on my case. I tried to extrude the whole sketch as it is but that didnt work because some part of the sketch broke. So I slowly divided it into difffernt parts and did it one by one. Overall I am pretty happy with the design.
+
+![](<images/Screenshot from 2026-07-24 20-30-13.png>)
+![](<images/Screenshot from 2026-07-24 20-30-27.png>)
 
 
 ## Bill of Materials
